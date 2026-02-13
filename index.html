@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Laura 💖</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ff9ecf,#ffc1e3);
+    overflow:hidden;
+}
+
+/* Fondo animado */
+.fondo{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    overflow:hidden;
+    z-index:0;
+    pointer-events:none;
+}
+
+.emoji{
+    position:absolute;
+    font-size:20px;
+    animation:flotar linear forwards;
+    opacity:0.7;
+}
+
+@keyframes flotar{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+
+/* Contenedor principal */
+.container{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    max-width:600px;
+    width:100%;
+    text-align:center;
+    opacity:1;
+    transition:opacity 0.6s ease;
+}
+
+.fade-out{opacity:0;}
+.fade-in{opacity:1;}
+
+h1{font-size:clamp(1.6rem,4vw,2.2rem);margin-bottom:20px;}
+p{font-size:clamp(1rem,2.5vw,1.2rem);margin-bottom:20px;}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+button{
+    padding:12px 30px;
+    font-size:1rem;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#yesBtn{background:#ff4fa3;color:white;}
+#noBtn{background:#ccc;}
+
+.imagen-final{
+    max-width:100%;
+    border-radius:20px;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="fondo" id="fondo"></div>
+
+<div class="container">
+    <div class="card" id="card"></div>
+</div>
+
+<script>
+const card = document.getElementById("card");
+let noClicks = 0;
+let yesSize = 1;
+let noSize = 1;
+
+/* Fondo animado optimizado */
+function crearEmoji(){
+    const fondo = document.getElementById("fondo");
+    const emoji = document.createElement("div");
+    emoji.classList.add("emoji");
+    emoji.innerHTML = Math.random() > 0.5 ? "💖" : "🌹";
+    emoji.style.left = Math.random()*100 + "vw";
+    emoji.style.fontSize = (Math.random()*15+15)+"px";
+    emoji.style.animationDuration = (Math.random()*5+5)+"s";
+    fondo.appendChild(emoji);
+    setTimeout(()=>emoji.remove(),10000);
+}
+setInterval(crearEmoji,700);
+
+/* Transición */
+function cambiarPagina(contenido){
+    card.classList.add("fade-out");
+    setTimeout(()=>{
+        card.innerHTML = contenido;
+        card.classList.remove("fade-out");
+    },600);
+}
+
+/* Página 1 */
+function pagina1(){
+    noClicks=0; yesSize=1; noSize=1;
+    cambiarPagina(`
+        <h1>Keres ser mi San Valentin Amol?</h1>
+        <div class="buttons">
+            <button id="yesBtn">Si</button>
+            <button id="noBtn">No</button>
+        </div>
+    `);
+
+    setTimeout(()=>{
+        const yesBtn=document.getElementById("yesBtn");
+        const noBtn=document.getElementById("noBtn");
+
+        yesBtn.onclick=()=>pagina2();
+
+        noBtn.onclick=()=>{
+            noClicks++;
+            yesSize+=0.15;
+            noSize-=0.1;
+            yesBtn.style.transform="scale("+yesSize+")";
+            noBtn.style.transform="scale("+noSize+")";
+            if(noClicks>=8){
+                noBtn.remove();
+                document.querySelector(".buttons").style.justifyContent="center";
+            }
+        };
+    },700);
+}
+
+/* Página 2 */
+function pagina2(){
+cambiarPagina(`
+<p>Me tenía q decir q si😾 jsjs ;3 te venía a decir q quería ser tu San Valentin quiero q nunca olvides q te amo muchísimo y q ante las circunstancias nunca olvides q no estás sola se q a veces la vida se pone difícil y es mamón sobre pensar de pq piensas q eres lo peor pero no lo eres eres la mejor persona q puede existir creeme linda cuando te lo digo no solo pq eres mi novia sino pq veo en ti cosas q a veces la gente no sabe apreciar</p>
+<div class="buttons">
+<button id="next">...</button>
+</div>
+`);
+setTimeout(()=>document.getElementById("next").onclick=pagina3,700);
+}
+
+/* Página 3 */
+function pagina3(){
+cambiarPagina(`
+<h1>Estarías dispuesta a casarte conmigo en el futuro?</h1>
+<div class="buttons">
+<button id="next">...</button>
+</div>
+`);
+setTimeout(()=>document.getElementById("next").onclick=pagina4,700);
+}
+
+/* Página 4 */
+function pagina4(){
+cambiarPagina(`
+<p>Yo si quiero a veces me da miedo el futuro pero se q contigo todo es posible y se q crees en mi así como yo creo en ti y se q serás alguien muy grande en el futuro Linda solo nunca dejes de decir q eres lo mejor aúnq las situaciones dicten lo contrario no te dejaras joder por la vida pq tú tienes el control y eres Lo mejor...</p>
+<div class="buttons">
+<button id="next">...</button>
+</div>
+`);
+setTimeout(()=>document.getElementById("next").onclick=pagina5,700);
+}
+
+/* Página 5 */
+function pagina5(){
+cambiarPagina(`
+<div>
+<img src="IMAGEN_AQUI.jpg" class="imagen-final">
+<p>admirarte eres simplemente perfecta</p>
+<div class="buttons" id="amorBtn"></div>
+</div>
+`);
+
+setTimeout(()=>{
+    document.getElementById("amorBtn").innerHTML=
+    '<button id="teAmo">Te Amo</button>';
+    document.getElementById("teAmo").onclick=final;
+},10000);
+}
+
+/* Final */
+function final(){
+cambiarPagina(`<h1>Yo mucho más</h1>`);
+}
+
+pagina1();
+</script>
+
+</body>
+</html>
